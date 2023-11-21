@@ -1,0 +1,24 @@
+{
+  "name": "generate-next-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "generate-page": "ts-node index.ts client && prettier --write ./pages "
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node-fetch": "^2.6.9",
+    "prettier": "3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "node-fetch": "^2.7.0",
+    "openapi-typescript": "^6.7.1",
+    "ts-node": "^10.9.1"
+  }
+}
