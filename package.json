@@ -1,13 +1,12 @@
 {
-  "name": "generate-next-pages",
+  "name": "@m.boussaidi/generate-next-pages",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "npx tsc",
-    "generate-page": "ts-node index.ts client && prettier --write ./pages "
+    "build": "tsc"
   },
-  "author": "",
+  "author": "mr.mohamed.boussaidi@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
@@ -20,5 +19,17 @@
     "node-fetch": "^2.7.0",
     "openapi-typescript": "^6.7.1",
     "ts-node": "^10.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohamed-boussaidi/generate-next-pages.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mohamed-boussaidi/generate-next-pages/issues"
+  },
+  "homepage": "https://github.com/mohamed-boussaidi/generate-next-pages#readme",
+  "description": "generate-next-pages",
+  "directories": {
+    "lib": "lib"
   }
 }
