@@ -1,4 +1,4 @@
-export const Select = (name: string,multiple:boolean) => {
+export const Select = (name,multiple) => {
     const options=multiple?name:name+'s'
     return (
         '        <FormControl fullWidth margin="normal">\n' +
@@ -27,7 +27,7 @@ export const Select = (name: string,multiple:boolean) => {
         "        </FormControl>"
     );
 };
-export const EmptySelect = (name: string,multiple:boolean) => {
+export const EmptySelect = (name,multiple) => {
     return (
         '        <FormControl fullWidth margin="normal">\n' +
         '          <InputLabel id="demo-simple-select-label">' +

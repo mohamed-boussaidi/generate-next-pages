@@ -1,19 +1,21 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PageEditContent = void 0;
-const renderElements_1 = require("../renderElements");
-const utils_1 = require("../../utils");
-const HeaderForm_1 = __importDefault(require("../HeaderForm"));
-const FooterForm_1 = __importDefault(require("../FooterForm"));
+import {renderInputFields} from "../renderElements.js";
+import {renderTypes, selectDataElement} from "../../utils/index.js";
+import renderHeaderForm from "../HeaderForm.js";
+import renderFooterForm from "../FooterForm.js";
+
 const argument = process.argv.slice(2);
-const Tag = argument[0].charAt(0).toUpperCase() + argument[0].slice(1);
-const PageEditContent = (pageName, resource, method, fields) => {
-    const keys = Object.keys(fields);
-    const values = Object.values(fields);
-    return `
+export const PageEditContent = (
+    pageName,
+    resource,
+    method,
+    fields
+) => {
+    if (argument.length !== 0) {
+        const Tag = argument[2].charAt(0).toUpperCase() + argument[2].slice(1);
+        const keys = Object.keys(fields);
+        const values = Object.values(fields);
+
+        return `
   import { HttpError } from '@refinedev/core';
   import Box from '@mui/material/Box';
   import TextField from '@mui/material/TextField';
@@ -47,9 +49,9 @@ const PageEditContent = (pageName, resource, method, fields) => {
   import Checkbox from '@mui/material/Checkbox';
   
   const ${pageName} = () => {
-    type I${Tag} = components["schemas"]["${Tag}-${argument[0]}.item"];
-    type IEdit${Tag} = components["schemas"]["${Tag}-${argument[0]}.edit"];
-   ${keys.map((item, index) => (0, utils_1.renderTypes)(values[index], item)).join("")}
+    type I${Tag} = components["schemas"]["${Tag}-${argument[2]}.item"];
+    type IEdit${Tag} = components["schemas"]["${Tag}-${argument[2]}.edit"];
+   ${keys.map((item, index) => renderTypes(values[index], item)).join("")}
 
   const {
     saveButtonProps,
@@ -60,15 +62,15 @@ const PageEditContent = (pageName, resource, method, fields) => {
   } = useForm<I${Tag}, HttpError, Nullable<IEdit${Tag}>>();
     
     ${keys
-        .map((item, index) => (0, utils_1.selectDataElement)(values[index], item)?.toString())
-        .join("")}
+            .map((item, index) => selectDataElement(values[index], item)?.toString())
+            .join("")}
   
     return (
-       ${(0, HeaderForm_1.default)(method)}
+       ${renderHeaderForm(method)}
     ${keys
-        .map((item, index) => (0, renderElements_1.renderInputFields)(values[index], item)?.toString())
-        .join("")}
-      ${(0, FooterForm_1.default)(method)}
+            .map((item, index) => renderInputFields(values[index], item)?.toString())
+            .join("")}
+      ${renderFooterForm(method)}
     );
   };
   
@@ -97,5 +99,7 @@ const PageEditContent = (pageName, resource, method, fields) => {
     };
   }
   `;
+    }else{
+        return null
+    }
 };
-exports.PageEditContent = PageEditContent;

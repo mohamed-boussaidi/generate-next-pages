@@ -1,24 +1,32 @@
 {
   "name": "@m.boussaidi/generate-next-pages",
-  "version": "1.0.0",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "version": "1.1.0",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "build": "tsc"
+    "start": "node src/index.js https://stg-accounts.shakazoola.com/api/docs.json -r user -o ."
   },
   "author": "mr.mohamed.boussaidi@gmail.com",
   "license": "ISC",
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/node-fetch": "^2.6.9",
-    "prettier": "3.0.3",
-    "typescript": "^5.2.2"
+    "prettier": "3.0.3"
+  },
+  "keywords": [
+    "swagger",
+    "next js",
+    "refine dev",
+    "openapi",
+    "fs-extra",
+    "generation",
+    "openapi 3",
+    "node"
+  ],
+  "bin": {
+    "genreate-next-pages": "src/index.js"
   },
   "dependencies": {
     "fs-extra": "^11.1.1",
-    "node-fetch": "^2.7.0",
-    "openapi-typescript": "^6.7.1",
-    "ts-node": "^10.9.1"
+    "node-fetch": "^2.7.0"
   },
   "repository": {
     "type": "git",
@@ -30,6 +38,6 @@
   "homepage": "https://github.com/mohamed-boussaidi/generate-next-pages#readme",
   "description": "generate-next-pages",
   "directories": {
-    "lib": "lib"
+    "lib": "src"
   }
 }

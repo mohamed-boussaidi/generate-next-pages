@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const renderFooterForm = (method) => {
     switch (method.toUpperCase()) {
         case "GET": {
@@ -16,4 +14,4 @@ const renderFooterForm = (method) => {
         }
     }
 };
-exports.default = renderFooterForm;
+export default renderFooterForm

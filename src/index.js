@@ -1,38 +1,38 @@
-// createPages.js
+#!/usr/bin/env node
 
-import { OpenAPI3 } from "openapi-typescript";
-import { createPage } from "./utils";
-import { PageCreateContent } from "./component/renderPages/Create";
-import { PageEditContent } from "./component/renderPages/Edit";
-import { PageListContent } from "./component/renderPages/List";
-import { PageShowContent } from "./component/renderPages/Show";
+import { createPage } from "./utils/index.js";
+import { PageCreateContent } from "./component/renderPages/Create.js";
+import { PageEditContent } from "./component/renderPages/Edit.js";
+import { PageListContent } from "./component/renderPages/List.js";
+import { PageShowContent } from "./component/renderPages/Show.js";
 import fetch from "node-fetch";
-import { IRoute } from "./interfaces";
 
 function main() {
-  const argument: string[] = process.argv.slice(2);
-  const dirname = argument[1];
-  console.log(dirname);
-  const Tag = argument[0].charAt(0).toUpperCase() + argument[0].slice(1);
+  const argument = process.argv.slice(2);
+  console.log(argument)
+  if(argument.length!==0){
+  const pathurl = argument[0];
+  const resource = argument[2];
 
-  async function data(): Promise<OpenAPI3> {
+    const Tag = resource?.charAt(0)?.toUpperCase() + resource?.slice(1);
+  async function data() {
     return await fetch(
-      "https://stg-accounts.shakazoola.com/api/docs.json",
-    ).then((e: any) => {
+        pathurl,
+    ).then((e) => {
       return e.json();
     });
   }
   data().then((e) => {
-    const routes = [] as IRoute[];
+    let routes =[]
     if (typeof e?.paths === "object") {
-      const paths = e?.paths[`/api/${argument[0]}s`];
-      const pathsId = e?.paths[`/api/${argument[0]}s/{id}`];
+      const paths = e?.paths[`/api/${resource}s`];
+      const pathsId = e?.paths[`/api/${resource}s/{id}`];
       const pathsKeys = Object.keys(paths);
       const pathsIdkeys = Object.keys(pathsId);
       pathsKeys.map((item, index) => {
-        let ref: any;
-        let itemdata: any;
-        let refPath: any;
+        let ref;
+        let itemdata;
+        let refPath;
         switch (item) {
           case "get":
             ref =
@@ -45,10 +45,10 @@ function main() {
 
             routes.push({
               methode: "GET",
-              route: "/" + argument[0] + "s",
+              route: "/" + resource + "s",
               // @ts-ignore
               data: itemdata.properties,
-              resource: argument[0] + "s",
+              resource: resource + "s",
             });
             break;
           case "post":
@@ -59,27 +59,33 @@ function main() {
               ]["$ref"];
             refPath = ref.split("/");
             itemdata = e?.components?.schemas?.[refPath[refPath.length - 1]];
-            console.log(itemdata.properties);
             routes.push({
               methode: "POST",
-              route: "/" + argument[0] + "s",
+              route: "/" + resource + "s",
               data: itemdata.properties,
-              resource: argument[0] + "s",
+              resource: resource + "s",
             });
             break;
         }
       });
       pathsIdkeys.map((item, index) => {
-        let ref: any;
-        let itemdata: any;
-        let refPath: any;
+        let ref;
+        let itemdata;
+        let refPath;
         switch (item) {
           case "get":
+            ref =
+                // @ts-ignore
+                pathsId["get"]["responses"]["200"]["content"][
+                    "application/ld+json"
+                    ]["schema"]["$ref"];
+            refPath = ref.split("/");
+            itemdata = e?.components?.schemas?.[refPath[refPath.length - 1]];
             routes.push({
               methode: "GETONE",
-              route: "/" + argument[0] + "s",
-              data: {},
-              resource: argument[0] + "s",
+              route: "/" + resource + "s",
+              data: itemdata.properties,
+              resource: resource + "s",
             });
             break;
           case "put":
@@ -93,9 +99,9 @@ function main() {
             // @ts-ignore
             routes.push({
               methode: "PUT",
-              route: "/" + argument[0] + "s",
+              route: "/" + resource + "s",
               data: itemdata.properties,
-              resource: argument[0] + "s",
+              resource: resource + "s",
             });
             break;
           default:
@@ -115,7 +121,7 @@ function main() {
                 item?.resource,
                 item?.methode,
                 item?.data,
-              ),
+              ) || "",
             );
             break;
           case "POST":
@@ -128,7 +134,7 @@ function main() {
                 item?.resource,
                 item?.methode,
                 item?.data,
-              ),
+              ) || "",
             );
             break;
           case "PUT":
@@ -141,7 +147,7 @@ function main() {
                 item?.resource,
                 item?.methode,
                 item?.data,
-              ),
+              ) || "",
             );
             break;
           case "GETONE":
@@ -151,10 +157,10 @@ function main() {
               item?.methode,
               PageShowContent(
                 Tag + "Page",
-                item?.resource,
-                item?.methode,
-                item?.data,
-              ),
+                  item?.resource,
+                  item?.methode,
+                  item?.data,
+              ) || "",
             );
           default:
             break;
@@ -162,5 +168,8 @@ function main() {
       });
     }
   });
+  }else{
+    console.warn("error  ,you must add the required params ")
+  }
 }
 main();

@@ -1,10 +1,9 @@
-import { Input } from "./renderInput";
-import {EmptySelect, Select} from "./renderSelect";
-import { InputDatePicker } from "./renderDatePicker";
-import { IValueField } from "../interfaces";
-import { CheckBox } from "./renderChackBox";
+import { Input } from "./renderInput.js";
+import {EmptySelect, Select} from "./renderSelect.js";
+import { InputDatePicker } from "./renderDatePicker.js";
+import { CheckBox } from "./renderChackBox.js";
 
-export const renderInputFields = (value: IValueField, key: string) => {
+export const renderInputFields = (value, key) => {
   if (value?.format === "iri-reference" || (value?.type === "array" && value.items?.format==="iri-reference")) {
     return `${Select(key,value?.type==='array'?true:false)}`;
   }else if (value?.type === "array" && value.items?.format!=="iri-reference") {

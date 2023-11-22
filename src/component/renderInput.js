@@ -1,4 +1,4 @@
-export const Input = (name: string) => {
+export const Input = (name) => {
   return (
     "<TextField \n " +
     "label='" +

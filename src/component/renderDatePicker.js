@@ -1,4 +1,4 @@
-export const InputDatePicker = (name: string) => {
+export const InputDatePicker = (name) => {
   return(
       '        <FormControl fullWidth margin="normal">\n' +
       '          <Controller\n' +

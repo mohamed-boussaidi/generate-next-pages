@@ -1,4 +1,4 @@
-export const CheckBox = (name: string) => {
+export const CheckBox = (name) => {
   return '        <FormControlLabel\n' +
       '            control={<Controller\n' +
       '                control={control}\n' +

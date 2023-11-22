@@ -1,29 +1,32 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const renderHeaderForm = (method) => {
     switch (method.toUpperCase()) {
         case "GET": {
             return "<List>";
         }
         case "POST": {
-            return ("<Create saveButtonProps={saveButtonProps}>\n" +
+            return (
+                "<Create saveButtonProps={saveButtonProps}>\n" +
                 "<Box\n" +
                 "component='form'\n" +
                 "sx={{ display: 'flex', flexDirection: 'column' }}\n" +
                 "autoComplete='off'\n      " +
-                "> ");
+                "> "
+            );
         }
         case "PUT": {
-            return ("<Edit saveButtonProps={saveButtonProps}>\n" +
+            return (
+                "<Edit saveButtonProps={saveButtonProps}>\n" +
                 "<Box\n" +
                 "component='form'\n" +
                 "sx={{ display: 'flex', flexDirection: 'column' }}\n" +
                 "autoComplete='off'\n      " +
-                "> ");
+                "> "
+            );
         }
         default: {
             return "<div>";
         }
     }
 };
-exports.default = renderHeaderForm;
+
+export default renderHeaderForm
