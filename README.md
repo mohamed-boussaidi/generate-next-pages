@@ -37,7 +37,7 @@ npx openapi-typescript https://myapi.dev/api/v1/openapi.yaml -o ./types/index.d.
 Second, generate crud pages by running `npx @m.boussaidi/generate-next-pages`:
 
 ```bash
-npx @m.boussaidi/generate-next-pages https://myapi.dev/api/v1/openapi.json https://petstore.swagger.io/v2/swagger.json -r pet  -o ./
+npx @m.boussaidi/generate-next-pages https://myapi.dev/api/v1/openapi.json -r pet  -o ./
 # 🚀 https://myapi.dev/api/v1/openapi.json -> ./pages/pet [7ms]
 ```
 
